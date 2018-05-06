@@ -1,6 +1,8 @@
-package net.apptimystic.appoflife
+package net.apptimystic.appoflife.core
 
 import android.app.Application
+import net.apptimystic.appoflife.core.DaggerApplicationComponent
+import net.apptimystic.appoflife.feature.todo.TodoModule
 
 class App : Application() {
 
@@ -12,6 +14,7 @@ class App : Application() {
 
         component = DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
+                .todoModule(TodoModule())
                 .build()
     }
 }

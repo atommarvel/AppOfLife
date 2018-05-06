@@ -1,4 +1,4 @@
-package net.apptimystic.appoflife
+package net.apptimystic.appoflife.core
 
 import android.app.Application
 import dagger.Module

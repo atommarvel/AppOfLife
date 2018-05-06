@@ -1,4 +1,4 @@
-package net.apptimystic.appoflife.todo
+package net.apptimystic.appoflife.data.todo
 
 public interface TodoRepository {
 

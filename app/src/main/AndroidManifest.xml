@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.apptimystic.appoflife">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:name=".App"
+        android:name=".core.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".todo.TodoActivity"></activity>
+        <activity android:name="net.apptimystic.appoflife.feature.todo.TodoActivityView"></activity>
     </application>
 
 </manifest>
