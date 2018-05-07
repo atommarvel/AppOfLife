@@ -2,7 +2,8 @@ package net.apptimystic.appoflife.feature.todo
 
 import dagger.Module
 import dagger.Provides
-import net.apptimystic.appoflife.data.todo.MockRepository
+import net.apptimystic.appoflife.data.todo.TodoMockRepository
+import net.apptimystic.appoflife.data.todo.TodoParseRepository
 import net.apptimystic.appoflife.data.todo.TodoRepository
 
 @Module
@@ -15,5 +16,5 @@ class TodoModule {
     fun provideTodoModel(repository: TodoRepository): TodoActivityMVP.Model = TodoModel(repository)
 
     @Provides
-    fun provideTodoRepository(): TodoRepository = MockRepository()
+    fun provideTodoRepository(): TodoRepository = TodoParseRepository()
 }

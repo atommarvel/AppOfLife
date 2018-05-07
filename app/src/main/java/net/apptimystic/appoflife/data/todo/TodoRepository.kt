@@ -1,6 +1,8 @@
 package net.apptimystic.appoflife.data.todo
 
-public interface TodoRepository {
+import io.reactivex.Single
 
-    fun getTodoItems(): List<Todo>
+interface TodoRepository {
+
+    fun getTodoItems(): Single<List<Todo?>>
 }

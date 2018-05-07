@@ -1,6 +1,6 @@
 package net.apptimystic.appoflife.feature.todo
 
-import io.reactivex.Observable
+import io.reactivex.Single
 import net.apptimystic.appoflife.data.todo.Todo
 
 interface TodoActivityMVP {
@@ -18,7 +18,7 @@ interface TodoActivityMVP {
     }
 
     interface Model {
-        fun result(): Observable<TodoViewModel>
+        fun result(): Single<TodoViewModel>
     }
 }
 
