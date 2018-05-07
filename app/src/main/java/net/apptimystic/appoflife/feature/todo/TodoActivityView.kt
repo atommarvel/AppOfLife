@@ -1,10 +1,14 @@
 package net.apptimystic.appoflife.feature.todo
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.mikepenz.fastadapter_extensions.swipe.SimpleSwipeCallback
 import kotlinx.android.synthetic.main.activity_todo.*
 import net.apptimystic.appoflife.core.App
 import net.apptimystic.appoflife.R
@@ -39,6 +43,14 @@ class TodoActivityView : AppCompatActivity(), TodoActivityMVP.View {
 
         headerMorningAdapter.add(HeaderRVItem("Morning Routine"))
         headerEveningAdapter.add(HeaderRVItem("Evening Routine"))
+
+        val touchCallback = SimpleSwipeCallback({ position: Int, direction: Int ->
+            Log.d("atom", fastAdapter.getItem(position).todo?.desc)
+            val info = fastAdapter.getRelativeInfo(position)
+            (info.adapter as ItemAdapter).remove(info.position)
+        }, ContextCompat.getDrawable(this, R.drawable.ic_done))
+        val touchHelper = ItemTouchHelper(touchCallback)
+        touchHelper.attachToRecyclerView(rvTodos)
     }
 
     override fun onResume() {
