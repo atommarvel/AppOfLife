@@ -22,4 +22,4 @@ interface TodoActivityMVP {
     }
 }
 
-data class TodoViewModel(var todos: List<Todo>)
+data class TodoViewModel(var morningTodos: List<Todo> = arrayListOf(), var eveningTodos: List<Todo> = arrayListOf())

@@ -11,8 +11,8 @@ class ParseManager {
     fun initParse(context: Context) {
         registerParseObjects()
         Parse.initialize(Parse.Configuration.Builder(context)
-                .applicationId("")
-                .server("")
+                .applicationId("L5f8SKNA6Elv")
+                .server("http://parse.atom.fyi/parse/")
                 .build())
     }
 

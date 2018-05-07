@@ -12,7 +12,7 @@ import net.apptimystic.appoflife.data.todo.Todo
 class TodoRVItem(var todo: Todo? = null) : AbstractItem<TodoRVItem, TodoRVItem.ViewHolder>() {
 
     //The unique ID for this type of item
-    override fun getType(): Int = R.id.todo_item
+    override fun getType(): Int = R.id.todo_cell
     //The layout to be used for this type of item
     override fun getLayoutRes(): Int = R.layout.cell_todo
     override fun getViewHolder(@NonNull v: View): ViewHolder = ViewHolder(v)

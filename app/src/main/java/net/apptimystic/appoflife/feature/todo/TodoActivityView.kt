@@ -13,7 +13,10 @@ import javax.inject.Inject
 
 class TodoActivityView : AppCompatActivity(), TodoActivityMVP.View {
 
-    lateinit var itemAdapter: ItemAdapter<TodoRVItem>
+    lateinit var headerMorningAdapter: ItemAdapter<HeaderRVItem>
+    lateinit var morningAdapter: ItemAdapter<TodoRVItem>
+    lateinit var headerEveningAdapter: ItemAdapter<HeaderRVItem>
+    lateinit var eveningAdapter: ItemAdapter<TodoRVItem>
     lateinit var fastAdapter: FastAdapter<TodoRVItem>
     @Inject lateinit var presenter: TodoPresenter
 
@@ -25,10 +28,17 @@ class TodoActivityView : AppCompatActivity(), TodoActivityMVP.View {
     }
 
     fun setupRV() {
-        itemAdapter = ItemAdapter()
-        fastAdapter = FastAdapter.with(itemAdapter)
+        headerMorningAdapter = ItemAdapter()
+        morningAdapter = ItemAdapter()
+        headerEveningAdapter = ItemAdapter()
+        eveningAdapter = ItemAdapter()
+
+        fastAdapter = FastAdapter.with(listOf(headerMorningAdapter, morningAdapter, headerEveningAdapter, eveningAdapter))
         rvTodos.setLayoutManager(LinearLayoutManager(this));
         rvTodos.adapter = fastAdapter
+
+        headerMorningAdapter.add(HeaderRVItem("Morning Routine"))
+        headerEveningAdapter.add(HeaderRVItem("Evening Routine"))
     }
 
     override fun onResume() {
@@ -38,7 +48,8 @@ class TodoActivityView : AppCompatActivity(), TodoActivityMVP.View {
     }
 
     override fun updateData(viewModel: TodoViewModel) {
-        itemAdapter.add(viewModel.todos.wrapForRV())
+        morningAdapter.add(viewModel.morningTodos.wrapForRV())
+        eveningAdapter.add(viewModel.eveningTodos.wrapForRV())
     }
 
     override fun showSnackBar(msg: String) {

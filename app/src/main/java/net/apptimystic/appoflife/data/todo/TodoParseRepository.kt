@@ -1,26 +1,27 @@
 package net.apptimystic.appoflife.data.todo
 
+import android.util.Log
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
-import io.reactivex.Single
+import io.reactivex.Observable
+import net.apptimystic.appoflife.parse.ParsePropDelegate
 import rx.parse2.ParseObservable
-import kotlin.reflect.KProperty
 
 
 class TodoParseRepository: TodoRepository {
 
-    override fun getTodoItems(): Single<List<Todo?>> {
+    override fun getTodoItems(): Observable<Todo> {
+        Log.d("atom", "requesting items")
         return ParseObservable.find(ParseTodo.getQuery())
                 .map { it.toTodo() }
-                .toList()
     }
 }
 
 @ParseClassName("RoutineAction")
 class ParseTodo: ParseObject() {
-    var description: String? by ParsePropString("description")
-    var group: String? by ParsePropString("group")
+    var description: String? by ParsePropDelegate("description", ::getString, ::put)
+    var group: String? by ParsePropDelegate("group", ::getString, ::put)
 
     companion object {
         fun getQuery(): ParseQuery<ParseTodo> {
@@ -28,16 +29,6 @@ class ParseTodo: ParseObject() {
         }
     }
 
-    fun toTodo(): Todo? {
-        return if (description != null && group != null) {
-            Todo(description!!, group!!)
-        } else {
-            null
-        }
-    }
-
-    inner class ParsePropString(val key: String) {
-        operator fun getValue(thisRef: Any?, property: KProperty<*>): String? = getString(key)
-        operator fun setValue(thisRef: Any?, property: KProperty<*>, s: String?) = put(key, s)
-    }
+    // TODO: Find a good way to pass optionals if a property is missing. Then filter out nulls.
+    fun toTodo(): Todo = Todo(description!!, group!!)
 }

@@ -1,8 +1,8 @@
 package net.apptimystic.appoflife.data.todo
 
-import io.reactivex.Single
+import io.reactivex.Observable
 
 interface TodoRepository {
 
-    fun getTodoItems(): Single<List<Todo?>>
+    fun getTodoItems(): Observable<Todo>
 }
