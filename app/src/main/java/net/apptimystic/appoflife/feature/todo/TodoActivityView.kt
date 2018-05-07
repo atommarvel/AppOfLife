@@ -34,7 +34,7 @@ class TodoActivityView : AppCompatActivity(), TodoActivityMVP.View {
         eveningAdapter = ItemAdapter()
 
         fastAdapter = FastAdapter.with(listOf(headerMorningAdapter, morningAdapter, headerEveningAdapter, eveningAdapter))
-        rvTodos.setLayoutManager(LinearLayoutManager(this));
+        rvTodos.layoutManager = LinearLayoutManager(this)
         rvTodos.adapter = fastAdapter
 
         headerMorningAdapter.add(HeaderRVItem("Morning Routine"))
