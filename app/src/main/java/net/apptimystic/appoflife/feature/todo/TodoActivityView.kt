@@ -45,6 +45,7 @@ class TodoActivityView : AppCompatActivity(), TodoActivityMVP.View {
         headerEveningAdapter.add(HeaderRVItem("Evening Routine"))
 
         val touchCallback = SimpleSwipeCallback({ position: Int, direction: Int ->
+            // TODO: call back into the presenter
             Log.d("atom", fastAdapter.getItem(position).todo?.desc)
             val info = fastAdapter.getRelativeInfo(position)
             (info.adapter as ItemAdapter).remove(info.position)
