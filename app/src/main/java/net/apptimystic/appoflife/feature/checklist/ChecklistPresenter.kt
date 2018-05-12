@@ -7,6 +7,8 @@ import android.support.v7.widget.helper.ItemTouchHelper.RIGHT
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import net.apptimystic.appoflife.data.checklist.Checklist
+import net.apptimystic.appoflife.data.checklist.MutableChecklist
 import net.apptimystic.appoflife.feature.checklist.recyclerview.ChecklistRVMVP
 import net.apptimystic.appoflife.feature.checklist.recyclerview.TaskViewHolder
 import java.lang.ref.WeakReference
@@ -17,6 +19,7 @@ class ChecklistPresenter @Inject constructor(var model: ChecklistMVP.Model) : Ch
     var disposable: Disposable? = null
     override lateinit var view: WeakReference<ChecklistMVP.View>
     var viewModel: ChecklistViewModel? = null
+    var activeChecklist: MutableChecklist = mutableListOf()
 
     override fun loadChecklist(name: String) {
         disposable = model
@@ -26,9 +29,10 @@ class ChecklistPresenter @Inject constructor(var model: ChecklistMVP.Model) : Ch
                 .subscribe(this::displayData, this::displayError)
     }
 
-    private fun displayData(result: ChecklistViewModel) {
-        viewModel = result
-        view.get()?.updateData(result)
+    private fun displayData(result: Checklist) {
+        viewModel = ChecklistViewModel(result)
+        activeChecklist.addAll(result)
+        view.get()?.updateData(viewModel!!)
     }
 
     private fun displayError(error: Throwable) {
@@ -42,11 +46,11 @@ class ChecklistPresenter @Inject constructor(var model: ChecklistMVP.Model) : Ch
     // Routine RecyclerView
 
     override fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        val task = viewModel?.checklist?.tasks?.get(position)
-        (viewHolder as ChecklistRVMVP.ChecklistView).setDesc(task?.desc ?: "")
+        val task = activeChecklist[position]
+        (viewHolder as ChecklistRVMVP.ChecklistView).setDesc(task.desc)
     }
 
-    override fun getItemCount(): Int = viewModel?.checklist?.tasks?.size ?: 0
+    override fun getItemCount(): Int = activeChecklist.size
 
     override fun getItemType(position: Int): Int = TaskViewHolder.viewType
 
@@ -61,7 +65,7 @@ class ChecklistPresenter @Inject constructor(var model: ChecklistMVP.Model) : Ch
 
     override fun itemSwiped(position: Int?) {
         if (position != null) {
-            viewModel?.checklist?.tasks?.removeAt(position)
+            activeChecklist.removeAt(position)
             view.get()?.updateData(viewModel!!)
         }
     }

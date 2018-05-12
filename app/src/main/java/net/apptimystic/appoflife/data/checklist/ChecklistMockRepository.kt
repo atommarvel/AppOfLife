@@ -19,7 +19,6 @@ class ChecklistMockRepository: ChecklistRepository {
         return Observable.range(1, count)
                 .map({ Task("item $it in checklist $name", name) })
                 .toList()
-                .map { Checklist(it) }
                 .blockingGet()
     }
 }

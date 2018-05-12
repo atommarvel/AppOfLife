@@ -15,7 +15,6 @@ class ChecklistParseRepository: ChecklistRepository {
         return ParseObservable.find(query)
                 .map { it.toTask() }
                 .toList()
-                .map { Checklist(it) }
     }
 
     override fun getChecklistDirectory(): Observable<Checklist> {
@@ -24,6 +23,6 @@ class ChecklistParseRepository: ChecklistRepository {
         return ParseObservable.find(query)
                 .map { it.toTask() }
                 .toList()
-                .flatMapObservable { Observable.just(Checklist(it)) }
+                .flatMapObservable { Observable.just(it) }
     }
 }

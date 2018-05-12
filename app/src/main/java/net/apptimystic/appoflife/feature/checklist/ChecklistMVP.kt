@@ -22,8 +22,8 @@ interface ChecklistMVP {
     }
 
     interface Model {
-        fun result(name: String): Single<ChecklistViewModel>
+        fun result(name: String): Single<Checklist>
     }
 }
 
-data class ChecklistViewModel(var checklist: Checklist = Checklist())
+data class ChecklistViewModel(var checklist: Checklist = listOf())
