@@ -1,5 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="todo_cell" type="id"/>
-    <item name="header_cell" type="id"/>
 </resources>

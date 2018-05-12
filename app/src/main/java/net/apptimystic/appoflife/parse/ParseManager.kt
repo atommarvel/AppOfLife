@@ -3,7 +3,7 @@ package net.apptimystic.appoflife.parse
 import android.content.Context
 import com.parse.Parse
 import com.parse.ParseObject
-import net.apptimystic.appoflife.data.todo.ParseTodo
+import net.apptimystic.appoflife.data.task.ParseTask
 
 
 class ParseManager {
@@ -17,6 +17,6 @@ class ParseManager {
     }
 
     private fun registerParseObjects() {
-        ParseObject.registerSubclass(ParseTodo::class.java)
+        ParseObject.registerSubclass(ParseTask::class.java)
     }
 }
