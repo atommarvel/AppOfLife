@@ -2,6 +2,7 @@ package net.apptimystic.appoflife.feature.todo
 
 import io.reactivex.Single
 import net.apptimystic.appoflife.data.todo.Todo
+import net.apptimystic.appoflife.feature.recyclerview.ITHPresenter
 import net.apptimystic.appoflife.feature.todo.recyclerview.RVTodoMVP
 import java.lang.ref.WeakReference
 
@@ -12,7 +13,7 @@ interface TodoActivityMVP {
         fun showSnackBar(msg: String)
     }
 
-    interface Presenter: RVTodoMVP.Presenter {
+    interface Presenter: RVTodoMVP.Presenter, ITHPresenter {
         var view: WeakReference<TodoActivityMVP.View>
 
         fun loadData()

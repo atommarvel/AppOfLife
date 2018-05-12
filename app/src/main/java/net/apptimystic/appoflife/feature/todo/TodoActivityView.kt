@@ -10,6 +10,10 @@ import net.apptimystic.appoflife.feature.todo.recyclerview.RVTodoAdapter
 import net.apptimystic.appoflife.ktx.snack
 import java.lang.ref.WeakReference
 import javax.inject.Inject
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.helper.ItemTouchHelper
+import net.apptimystic.appoflife.feature.todo.recyclerview.SwipeTouchHelper
+
 
 class TodoActivityView : AppCompatActivity(), TodoActivityMVP.View {
 
@@ -24,9 +28,11 @@ class TodoActivityView : AppCompatActivity(), TodoActivityMVP.View {
     }
 
     fun setupRV() {
-
         rvTodos.layoutManager = LinearLayoutManager(this)
-
+        val decoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
+        rvTodos.addItemDecoration(decoration)
+        val touchHelper = ItemTouchHelper(SwipeTouchHelper(presenter))
+        touchHelper.attachToRecyclerView(rvTodos)
     }
 
     override fun onResume() {

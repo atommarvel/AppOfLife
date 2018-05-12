@@ -1,6 +1,9 @@
 package net.apptimystic.appoflife.feature.todo
 
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
+import android.support.v7.widget.helper.ItemTouchHelper.LEFT
+import android.support.v7.widget.helper.ItemTouchHelper.RIGHT
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -33,17 +36,21 @@ class TodoPresenter @Inject constructor(var model: TodoActivityMVP.Model) : Todo
     private fun onDataLoaded(result: TodoViewModel) {
         adapterList.clear()
         viewModel = result
-        view.get()?.updateData(result)
         val routineList: MutableList<Any> = mutableListOf()
         viewModel?.morningTodos?.let {
-            routineList.add(Header("Morning Routine"))
-            routineList.addAll(it as List<Any>)
+            if (it.isNotEmpty()) {
+                routineList.add(Header("Morning Routine"))
+                routineList.addAll(it as List<Any>)
+            }
         }
-        viewModel?.morningTodos?.let {
-            routineList.add(Header("Evening Routine"))
-            routineList.addAll(it as List<Any>)
+        viewModel?.eveningTodos?.let {
+            if (it.isNotEmpty()) {
+                routineList.add(Header("Evening Routine"))
+                routineList.addAll(it as List<Any>)
+            }
         }
         adapterList = routineList
+        view.get()?.updateData(result)
     }
 
     override fun rxUnsubscribe() {
@@ -76,6 +83,22 @@ class TodoPresenter @Inject constructor(var model: TodoActivityMVP.Model) : Todo
             is Todo -> TodoViewHolder.viewType
             is Header -> HeaderViewHolder.viewType
             else -> throw IllegalStateException("can't handle provided data")
+        }
+    }
+
+    // Swipe to dismiss
+
+    override fun movementFlags(itemViewType: Int?): Int {
+        return when(itemViewType) {
+            TodoViewHolder.viewType -> return ItemTouchHelper.Callback.makeMovementFlags(0, LEFT or RIGHT)
+            else -> 0
+        }
+    }
+
+    override fun itemSwiped(position: Int?) {
+        if (position != null) {
+            adapterList.removeAt(position)
+            view.get()?.updateData(viewModel!!)
         }
     }
 }
