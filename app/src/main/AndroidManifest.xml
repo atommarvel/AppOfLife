@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="net.apptimystic.appoflife.feature.checklist.ChecklistView"></activity>
+        <activity android:name=".feature.checklist.ChecklistView" />
+        <activity android:name=".feature.directory.DirectoryView" />
     </application>
 
 </manifest>

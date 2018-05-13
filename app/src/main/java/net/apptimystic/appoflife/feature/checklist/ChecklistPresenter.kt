@@ -19,7 +19,7 @@ class ChecklistPresenter @Inject constructor(var model: ChecklistMVP.Model) : Ch
     var disposable: Disposable? = null
     override lateinit var view: WeakReference<ChecklistMVP.View>
     var viewModel: ChecklistViewModel? = null
-    var activeChecklist: MutableChecklist = mutableListOf()
+    var activeChecklist: MutableChecklist = MutableChecklist()
 
     override fun loadChecklist(name: String) {
         disposable = model
@@ -47,12 +47,16 @@ class ChecklistPresenter @Inject constructor(var model: ChecklistMVP.Model) : Ch
 
     override fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val task = activeChecklist[position]
-        (viewHolder as ChecklistRVMVP.ChecklistView).setDesc(task.desc)
+        (viewHolder as ChecklistRVMVP.TaskView).setDesc(task.desc)
     }
 
     override fun getItemCount(): Int = activeChecklist.size
 
     override fun getItemType(position: Int): Int = TaskViewHolder.viewType
+
+    override fun onItemClick(position: Int) {
+        // Do nothing
+    }
 
     // Swipe to dismiss
 

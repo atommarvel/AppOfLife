@@ -2,7 +2,6 @@ package net.apptimystic.appoflife.feature.checklist
 
 import dagger.Module
 import dagger.Provides
-import net.apptimystic.appoflife.data.checklist.ChecklistMockRepository
 import net.apptimystic.appoflife.data.checklist.ChecklistParseRepository
 import net.apptimystic.appoflife.data.checklist.ChecklistRepository
 

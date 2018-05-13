@@ -6,4 +6,5 @@ interface RVPresenter {
     fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int)
     fun getItemCount(): Int
     fun getItemType(position: Int): Int
+    fun onItemClick(position: Int)
 }

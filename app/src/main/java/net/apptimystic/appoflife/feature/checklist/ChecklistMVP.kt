@@ -2,9 +2,8 @@ package net.apptimystic.appoflife.feature.checklist
 
 import io.reactivex.Single
 import net.apptimystic.appoflife.data.checklist.Checklist
-import net.apptimystic.appoflife.data.task.Task
-import net.apptimystic.appoflife.feature.recyclerview.ITHPresenter
 import net.apptimystic.appoflife.feature.checklist.recyclerview.ChecklistRVMVP
+import net.apptimystic.appoflife.feature.recyclerview.ITHPresenter
 import java.lang.ref.WeakReference
 
 interface ChecklistMVP {
@@ -26,4 +25,4 @@ interface ChecklistMVP {
     }
 }
 
-data class ChecklistViewModel(var checklist: Checklist = listOf())
+data class ChecklistViewModel(var checklist: Checklist = Checklist())

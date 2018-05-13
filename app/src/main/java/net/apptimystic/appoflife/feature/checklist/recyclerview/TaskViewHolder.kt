@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.cell_task.view.*
 import net.apptimystic.appoflife.R
 
-class TaskViewHolder(var itemV: View): RecyclerView.ViewHolder(itemV), ChecklistRVMVP.ChecklistView {
+class TaskViewHolder(var itemV: View): RecyclerView.ViewHolder(itemV), ChecklistRVMVP.TaskView {
 
     companion object {
         val viewType = 1

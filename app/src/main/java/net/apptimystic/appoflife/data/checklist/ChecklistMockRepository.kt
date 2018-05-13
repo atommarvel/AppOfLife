@@ -10,15 +10,11 @@ class ChecklistMockRepository: ChecklistRepository {
         return Single.just(createMockChecklist(5, name))
     }
 
-    override fun getChecklistDirectory(): Observable<Checklist> {
-        return Observable.range(1, 5)
-                .map { createMockChecklist(5, "checklist$it") }
-    }
-
-    private fun createMockChecklist(count: Int, name: String): Checklist {
-        return Observable.range(1, count)
+    fun createMockChecklist(count: Int, name: String): Checklist {
+        val tasks = Observable.range(1, count)
                 .map({ Task("item $it in checklist $name", name) })
                 .toList()
                 .blockingGet()
+        return Checklist(tasks, name)
     }
 }

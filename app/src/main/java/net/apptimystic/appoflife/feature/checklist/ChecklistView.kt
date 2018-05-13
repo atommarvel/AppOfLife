@@ -2,17 +2,17 @@ package net.apptimystic.appoflife.feature.checklist
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.helper.ItemTouchHelper
 import kotlinx.android.synthetic.main.activity_tasks.*
-import net.apptimystic.appoflife.core.App
 import net.apptimystic.appoflife.R
+import net.apptimystic.appoflife.core.App
 import net.apptimystic.appoflife.feature.checklist.recyclerview.ChecklistRVAdapter
+import net.apptimystic.appoflife.feature.checklist.recyclerview.SwipeTouchHelper
 import net.apptimystic.appoflife.ktx.snack
 import java.lang.ref.WeakReference
 import javax.inject.Inject
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.helper.ItemTouchHelper
-import net.apptimystic.appoflife.feature.checklist.recyclerview.SwipeTouchHelper
 
 
 class ChecklistView : AppCompatActivity(), ChecklistMVP.View {
@@ -38,7 +38,7 @@ class ChecklistView : AppCompatActivity(), ChecklistMVP.View {
     override fun onResume() {
         super.onResume()
         presenter.view = WeakReference(this)
-        presenter.loadChecklist("morning")
+        presenter.loadChecklist(intent.getStringExtra("name"))
     }
 
     override fun onPause() {

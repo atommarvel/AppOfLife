@@ -3,7 +3,7 @@ package net.apptimystic.appoflife.feature.checklist.recyclerview
 import net.apptimystic.appoflife.feature.recyclerview.RVPresenter
 
 interface ChecklistRVMVP {
-    interface ChecklistView {
+    interface TaskView {
         fun setDesc(desc: String)
     }
 
