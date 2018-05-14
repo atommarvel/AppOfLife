@@ -2,22 +2,13 @@ package net.apptimystic.appoflife.feature.directory.recyclerview
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import net.apptimystic.appoflife.feature.recyclerview.RVPresenter
-import java.lang.IllegalStateException
+import net.apptimystic.appoflife.feature.directory.DirectoryMVP
+import net.apptimystic.appoflife.feature.recyclerview.RVAdapter
+import javax.inject.Inject
 
-class DirectoryRVAdapter(private val presenter: RVPresenter) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DirectoryRVAdapter @Inject constructor(presenter: DirectoryMVP.Presenter) : RVAdapter(presenter) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType) {
-            ChecklistViewHolder.viewType -> ChecklistViewHolder.inflate(parent, presenter)
-            else -> throw IllegalStateException("viewType $viewType is not covered")
-        }
+        return ChecklistViewHolder.inflate(parent, presenter)
     }
-
-    override fun getItemCount(): Int = presenter.getItemCount()
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        presenter.bindViewHolder(holder, position)
-    }
-
-    override fun getItemViewType(position: Int): Int = presenter.getItemType(position)
 }

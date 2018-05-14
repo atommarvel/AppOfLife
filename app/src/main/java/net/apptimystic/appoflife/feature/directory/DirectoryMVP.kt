@@ -1,6 +1,5 @@
 package net.apptimystic.appoflife.feature.directory
 
-import io.reactivex.Single
 import net.apptimystic.appoflife.data.checklist.Checklist
 import net.apptimystic.appoflife.data.directory.Directory
 import net.apptimystic.appoflife.feature.directory.recyclerview.DirectoryRVMVP
@@ -19,10 +18,6 @@ interface DirectoryMVP {
 
         fun loadDirectory()
         fun rxUnsubscribe()
-    }
-
-    interface Model {
-        fun result(): Single<Directory>
     }
 }
 

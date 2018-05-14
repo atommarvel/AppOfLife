@@ -4,14 +4,14 @@ import android.support.v7.widget.RecyclerView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import net.apptimystic.appoflife.data.checklist.Checklist
 import net.apptimystic.appoflife.data.directory.Directory
+import net.apptimystic.appoflife.data.directory.DirectoryRepository
 import net.apptimystic.appoflife.data.directory.MutableDirectory
 import net.apptimystic.appoflife.feature.directory.recyclerview.ChecklistViewHolder
 import net.apptimystic.appoflife.feature.directory.recyclerview.DirectoryRVMVP
 import java.lang.ref.WeakReference
 
-class DirectoryPresenter(var model: DirectoryMVP.Model): DirectoryMVP.Presenter {
+class DirectoryPresenter(var repo: DirectoryRepository): DirectoryMVP.Presenter {
 
     override lateinit var view: WeakReference<DirectoryMVP.View>
     var disposable: Disposable? = null
@@ -25,7 +25,7 @@ class DirectoryPresenter(var model: DirectoryMVP.Model): DirectoryMVP.Presenter 
 
     override fun loadDirectory() {
         clearData()
-        disposable = model.result()
+        disposable = repo.getDirectory()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::displayData, this::displayError)

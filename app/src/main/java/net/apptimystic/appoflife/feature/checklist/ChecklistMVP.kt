@@ -1,6 +1,5 @@
 package net.apptimystic.appoflife.feature.checklist
 
-import io.reactivex.Single
 import net.apptimystic.appoflife.data.checklist.Checklist
 import net.apptimystic.appoflife.feature.checklist.recyclerview.ChecklistRVMVP
 import net.apptimystic.appoflife.feature.recyclerview.ITHPresenter
@@ -18,10 +17,6 @@ interface ChecklistMVP {
 
         fun loadChecklist(id: String)
         fun rxUnsubscribe()
-    }
-
-    interface Model {
-        fun result(id: String): Single<Checklist>
     }
 }
 

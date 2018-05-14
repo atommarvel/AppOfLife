@@ -8,13 +8,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import net.apptimystic.appoflife.data.checklist.Checklist
+import net.apptimystic.appoflife.data.checklist.ChecklistRepository
 import net.apptimystic.appoflife.data.checklist.MutableChecklist
 import net.apptimystic.appoflife.feature.checklist.recyclerview.ChecklistRVMVP
 import net.apptimystic.appoflife.feature.checklist.recyclerview.TaskViewHolder
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-class ChecklistPresenter @Inject constructor(var model: ChecklistMVP.Model) : ChecklistMVP.Presenter {
+class ChecklistPresenter @Inject constructor(var repository: ChecklistRepository) : ChecklistMVP.Presenter {
 
     var disposable: Disposable? = null
     override lateinit var view: WeakReference<ChecklistMVP.View>
@@ -22,8 +23,8 @@ class ChecklistPresenter @Inject constructor(var model: ChecklistMVP.Model) : Ch
     var activeChecklist: MutableChecklist = MutableChecklist()
 
     override fun loadChecklist(id: String) {
-        disposable = model
-                .result(id)
+        disposable = repository
+                .getChecklist(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::displayData, this::displayError)

@@ -18,7 +18,7 @@ import javax.inject.Inject
 class DirectoryView: AppCompatActivity(), DirectoryMVP.View {
 
     @Inject lateinit var presenter: DirectoryMVP.Presenter
-    lateinit var rvAdapter: DirectoryRVAdapter
+    @Inject lateinit var rvAdapter: DirectoryRVAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +31,7 @@ class DirectoryView: AppCompatActivity(), DirectoryMVP.View {
         rvChecklists.layoutManager = LinearLayoutManager(this)
         val decoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
         rvChecklists.addItemDecoration(decoration)
+        rvChecklists.adapter = rvAdapter
     }
 
     override fun onResume() {
@@ -45,8 +46,6 @@ class DirectoryView: AppCompatActivity(), DirectoryMVP.View {
     }
 
     override fun updateData(viewModel: DirectoryViewModel) {
-        rvAdapter = DirectoryRVAdapter(presenter)
-        rvChecklists.adapter = rvAdapter
         rvAdapter.notifyDataSetChanged()
     }
 

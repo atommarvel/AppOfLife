@@ -18,7 +18,7 @@ import javax.inject.Inject
 class ChecklistView : AppCompatActivity(), ChecklistMVP.View {
 
     @Inject lateinit var presenter: ChecklistMVP.Presenter
-    lateinit var rvAdapter: ChecklistRVAdapter
+    @Inject lateinit var rvAdapter: ChecklistRVAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +34,7 @@ class ChecklistView : AppCompatActivity(), ChecklistMVP.View {
         rvTasks.addItemDecoration(decoration)
         val touchHelper = ItemTouchHelper(SwipeTouchHelper(presenter))
         touchHelper.attachToRecyclerView(rvTasks)
+        rvTasks.adapter = rvAdapter
     }
 
     override fun onResume() {
@@ -48,8 +49,6 @@ class ChecklistView : AppCompatActivity(), ChecklistMVP.View {
     }
 
     override fun updateData(viewModel: ChecklistViewModel) {
-        rvAdapter = ChecklistRVAdapter(presenter)
-        rvTasks.adapter = rvAdapter
         rvAdapter.notifyDataSetChanged()
     }
 

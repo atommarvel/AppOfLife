@@ -4,15 +4,19 @@ import dagger.Module
 import dagger.Provides
 import net.apptimystic.appoflife.data.checklist.ChecklistParseRepository
 import net.apptimystic.appoflife.data.checklist.ChecklistRepository
+import net.apptimystic.appoflife.feature.checklist.recyclerview.ChecklistRVAdapter
+import net.apptimystic.appoflife.feature.recyclerview.RVAdapter
+import javax.inject.Singleton
 
 @Module
 class ChecklistModule {
 
     @Provides
-    fun provideChecklistPresenter(model: ChecklistMVP.Model): ChecklistMVP.Presenter = ChecklistPresenter(model)
+    fun provideChecklistRVAdapter(presenter: ChecklistMVP.Presenter): RVAdapter = ChecklistRVAdapter(presenter)
 
     @Provides
-    fun provideChecklistModel(repository: ChecklistRepository): ChecklistMVP.Model = ChecklistModel(repository)
+    @Singleton
+    fun provideChecklistPresenter(repo: ChecklistRepository): ChecklistMVP.Presenter = ChecklistPresenter(repo)
 
     @Provides
     fun provideChecklistRepository(): ChecklistRepository = ChecklistParseRepository()
