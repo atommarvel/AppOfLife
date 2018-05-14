@@ -16,12 +16,12 @@ interface ChecklistMVP {
     interface Presenter: ChecklistRVMVP.Presenter, ITHPresenter {
         var view: WeakReference<ChecklistMVP.View>
 
-        fun loadChecklist(name: String)
+        fun loadChecklist(id: String)
         fun rxUnsubscribe()
     }
 
     interface Model {
-        fun result(name: String): Single<Checklist>
+        fun result(id: String): Single<Checklist>
     }
 }
 

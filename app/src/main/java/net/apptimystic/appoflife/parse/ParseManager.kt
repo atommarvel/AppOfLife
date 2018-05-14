@@ -3,6 +3,7 @@ package net.apptimystic.appoflife.parse
 import android.content.Context
 import com.parse.Parse
 import com.parse.ParseObject
+import net.apptimystic.appoflife.data.checklist.ParseChecklist
 import net.apptimystic.appoflife.data.task.ParseTask
 
 
@@ -18,5 +19,6 @@ class ParseManager {
 
     private fun registerParseObjects() {
         ParseObject.registerSubclass(ParseTask::class.java)
+        ParseObject.registerSubclass(ParseChecklist::class.java)
     }
 }

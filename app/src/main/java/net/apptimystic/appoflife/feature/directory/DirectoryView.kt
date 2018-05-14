@@ -56,7 +56,7 @@ class DirectoryView: AppCompatActivity(), DirectoryMVP.View {
 
     override fun displayChecklist(checklist: Checklist) {
         val intent = Intent(this, ChecklistView::class.java)
-        intent.putExtra("name", checklist.name)
+        intent.putExtra("id", checklist.id)
         startActivity(intent)
     }
 }

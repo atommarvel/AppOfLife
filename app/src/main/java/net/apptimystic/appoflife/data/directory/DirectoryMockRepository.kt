@@ -1,6 +1,7 @@
 package net.apptimystic.appoflife.data.directory
 
 import io.reactivex.Single
+import net.apptimystic.appoflife.data.checklist.Checklist
 import net.apptimystic.appoflife.data.checklist.ChecklistMockRepository
 
 class DirectoryMockRepository: DirectoryRepository {
@@ -10,9 +11,8 @@ class DirectoryMockRepository: DirectoryRepository {
     }
 
     fun getMockDirectory(): Directory {
-        val checklistRepo = ChecklistMockRepository()
         return listOf(
-                checklistRepo.createMockChecklist(5, "first")
+                Checklist()
         )
     }
 }

@@ -21,9 +21,9 @@ class ChecklistPresenter @Inject constructor(var model: ChecklistMVP.Model) : Ch
     var viewModel: ChecklistViewModel? = null
     var activeChecklist: MutableChecklist = MutableChecklist()
 
-    override fun loadChecklist(name: String) {
+    override fun loadChecklist(id: String) {
         disposable = model
-                .result(name)
+                .result(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::displayData, this::displayError)

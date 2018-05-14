@@ -6,6 +6,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import net.apptimystic.appoflife.data.checklist.Checklist
 import net.apptimystic.appoflife.data.directory.Directory
+import net.apptimystic.appoflife.data.directory.MutableDirectory
 import net.apptimystic.appoflife.feature.directory.recyclerview.ChecklistViewHolder
 import net.apptimystic.appoflife.feature.directory.recyclerview.DirectoryRVMVP
 import java.lang.ref.WeakReference
@@ -15,7 +16,7 @@ class DirectoryPresenter(var model: DirectoryMVP.Model): DirectoryMVP.Presenter 
     override lateinit var view: WeakReference<DirectoryMVP.View>
     var disposable: Disposable? = null
     var viewModel: DirectoryViewModel? = null
-    var activeDirectoryList: MutableList<Checklist> = mutableListOf()
+    var activeDirectoryList: MutableDirectory = mutableListOf()
 
     fun clearData() {
         viewModel = null
@@ -32,7 +33,7 @@ class DirectoryPresenter(var model: DirectoryMVP.Model): DirectoryMVP.Presenter 
 
     fun displayData(result: Directory) {
         viewModel = DirectoryViewModel(result)
-        activeDirectoryList.addAll(result as Collection<Checklist>)
+        activeDirectoryList.addAll(result)
         view.get()?.updateData(viewModel!!)
     }
 
@@ -47,7 +48,7 @@ class DirectoryPresenter(var model: DirectoryMVP.Model): DirectoryMVP.Presenter 
     // RecyclerView
 
     override fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        val checklist: Checklist = activeDirectoryList[position]
+        val checklist = activeDirectoryList[position]
         (viewHolder as DirectoryRVMVP.ChecklistView).setName(checklist.name)
     }
 

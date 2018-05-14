@@ -38,7 +38,7 @@ class ChecklistView : AppCompatActivity(), ChecklistMVP.View {
     override fun onResume() {
         super.onResume()
         presenter.view = WeakReference(this)
-        presenter.loadChecklist(intent.getStringExtra("name"))
+        presenter.loadChecklist(intent.getStringExtra("id"))
     }
 
     override fun onPause() {
