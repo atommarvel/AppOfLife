@@ -25,6 +25,7 @@ class ChecklistView : AppCompatActivity(), ChecklistMVP.View {
         setContentView(R.layout.activity_tasks)
         (application as App).component?.inject(this)
         setupRV()
+        supportActionBar?.title = intent.getStringExtra("name")
     }
 
     fun setupRV() {
